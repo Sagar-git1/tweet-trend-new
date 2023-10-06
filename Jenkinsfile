@@ -14,5 +14,15 @@ environment {
                 sh "mvn clean deploy"
             }
         }
+        stage('SonarQube analysis') {
+            environment {
+               scannerHome = tool 'sonarqubescanner'; //need to get it from jenkins tools section
+            }
+            steps {
+                withSonarQubeEnv('sonarqube-server') { // under system configuration you can get sonar server name
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+            }
+        }
     }
 }
