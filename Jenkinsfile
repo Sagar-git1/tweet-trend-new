@@ -33,7 +33,7 @@ environment {
                 }
             }
         }
-        stage('Quality gate')
+        stage('Quality gate') {
           steps {
             script {
                 timeout(time: 1, unit: 'HOURS') {
