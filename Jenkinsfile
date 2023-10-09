@@ -1,4 +1,6 @@
 def registry = 'https://sagardevops01.jfrog.io'
+def imageName = 'sagardevops01.jfrog.io/devopspractice-docker-local/tweet-trend'
+def version   = '2.1.2'
 pipeline{
     agent {
         node {
@@ -70,5 +72,25 @@ environment {
                 }
             }
         } 
+        stage('docker build') {
+            steps {
+                script {
+                    echo '<--------------- Docker Build Started --------------->'
+                    app = docker.build(imageName+":"+version)
+                    echo '<--------------- Docker Build Ends --------------->'
+                }
+            }
+        }
+        stage('docker publish') {
+            steps {
+                script {
+                    echo '<--------------- Docker Publish Started --------------->'
+                    docker.withRegistry(registry, 'jfrog-cred'){
+                        app.push()
+                    }
+                    echo '<--------------- Docker Publish Ended --------------->'
+                }
+            }
+        }
     }
 }
