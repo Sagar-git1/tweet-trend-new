@@ -1,6 +1,6 @@
 def registry = 'https://sagardevops01.jfrog.io'
 def imageName = 'sagardevops01.jfrog.io/devopspractice-docker-local/tweet-trend'
-def version   = '2.1.2'
+def version   = '2.1.3'
 pipeline{
     agent {
         node {
